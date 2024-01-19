@@ -42,42 +42,6 @@ class TriviaClient {
         )
 
         requestQueue.add(jsonObjectRequest)
-
-
-        /*return listOf(
-            Question(
-                Type.ANY_TYPE,
-                Difficulty.ANY_DIFFICULTY,
-                Category.ANY_CATEGORY,
-                "test test test testtesttesttest test test",
-                "3",
-                listOf("1", "2", "4")
-            ),
-            Question(
-                Type.ANY_TYPE,
-                Difficulty.ANY_DIFFICULTY,
-                Category.ANY_CATEGORY,
-                "test 2",
-                "1",
-                listOf("2")
-            ),
-            Question(
-                Type.ANY_TYPE,
-                Difficulty.ANY_DIFFICULTY,
-                Category.ANY_CATEGORY,
-                "test test test testtesttesttest test test",
-                "1",
-                listOf("2")
-            ),
-            Question(
-                Type.ANY_TYPE,
-                Difficulty.ANY_DIFFICULTY,
-                Category.ANY_CATEGORY,
-                "test test test testtesttesttest test test",
-                "4",
-                listOf("1", "2", "3")
-            )
-        )*/
     }
 
 }
