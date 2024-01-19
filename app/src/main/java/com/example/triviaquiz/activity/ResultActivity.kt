@@ -7,12 +7,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.triviaquiz.R
-import com.example.triviaquiz.service.QuestionService
 
 
 const val CORRECTLY_ANSWERED = "CORRECTLY_ANSWERED"
 class ResultActivity : AppCompatActivity() {
-    private val questionService = QuestionService()
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)

@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.triviaquiz"
-        minSdk = 24
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation("com.android.volley:volley:1.2.1")
     implementation("com.squareup:seismic:1.0.3")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

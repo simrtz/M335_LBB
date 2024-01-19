@@ -12,32 +12,35 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.triviaquiz.R
 import com.example.triviaquiz.domain.Question
-import com.example.triviaquiz.service.QuestionService
 import com.squareup.seismic.ShakeDetector
 
+
+const val QUESTION_SET_KEY = "QUESTION_SET"
 const val NUMBER_OF_QUESTIONS_KEY = "NUMBER_OF_QUESTIONS"
-const val CATEGORY_KEY = "CATEGORY"
-const val DIFFICULTY_KEY = "DIFFICULTY"
-const val TYPE_KEY = "TYPE"
+const val BUNDLE_KEY = "BUNDLE"
 
 class QuestionActivity : AppCompatActivity(), ShakeDetector.Listener {
-    private val questionService = QuestionService()
-    private var questionSet = listOf<Question>()
+    private var questionSet: ArrayList<Question> = arrayListOf()
     private var currentQuestionIndex = 0
     private var selectedAnswer: Pair<Button, Int>? = null
     private var addedButtons: MutableList<Button> = mutableListOf()
     private var correctlyAnswered = 0
+    private var numberOfQuestions = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.question_main)
+        val bundle = intent.getBundleExtra(BUNDLE_KEY)
+        val retrievedQuestions = bundle?.getSerializable(QUESTION_SET_KEY) as ArrayList<Question>
+
+        questionSet = retrievedQuestions
+        numberOfQuestions = questionSet.size
 
         val sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         val shakeDetector = ShakeDetector(this)
-        shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_NORMAL)
+        shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_UI)
 
-        populateQuestionSet()
         populateView()
     }
 
@@ -52,15 +55,6 @@ class QuestionActivity : AppCompatActivity(), ShakeDetector.Listener {
         val shuffledAnswerPool = getShuffledAnswerPool()
         addAnswerButtons(shuffledAnswerPool)
         setUpRevealButton(shuffledAnswerPool)
-    }
-
-    private fun populateQuestionSet() {
-        val numberOfQuestions = intent.getIntExtra(NUMBER_OF_QUESTIONS_KEY, 0)
-        val category = intent.getStringExtra(CATEGORY_KEY)!!
-        val difficulty = intent.getStringExtra(DIFFICULTY_KEY)!!
-        val type = intent.getStringExtra(TYPE_KEY)!!
-
-        questionSet = questionService.getQuestionSet(numberOfQuestions, category, difficulty, type)
     }
 
     private fun getShuffledAnswerPool(): MutableList<String> {
@@ -142,12 +136,12 @@ class QuestionActivity : AppCompatActivity(), ShakeDetector.Listener {
     }
 
     override fun hearShake() {
-        if (currentQuestionIndex < questionSet.size - 1) {
+        if (currentQuestionIndex < numberOfQuestions - 1) {
             currentQuestionIndex++
             populateView()
         } else {
             val intent = Intent(this, ResultActivity::class.java)
-            intent.putExtra(NUMBER_OF_QUESTIONS_KEY, questionSet.size)
+            intent.putExtra(NUMBER_OF_QUESTIONS_KEY, numberOfQuestions)
             intent.putExtra(CORRECTLY_ANSWERED, correctlyAnswered)
             currentQuestionIndex = 0
             correctlyAnswered = 0
