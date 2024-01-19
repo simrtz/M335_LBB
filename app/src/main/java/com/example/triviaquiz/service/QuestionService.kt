@@ -9,50 +9,42 @@ import com.example.triviaquiz.domain.questionDataTypes.Type
 class QuestionService {
 
     private val triviaClient = TriviaClient()
-    private var correctAnswers = 0;
 
-
-    fun getQuestionSet(): List<Question> {
+    fun getQuestionSet(numberOfQuestions: Int, category: String, difficulty: String, type: String): List<Question> {
 
         return listOf(
             Question(
                 Type.ANY_TYPE,
                 Difficulty.ANY_DIFFICULTY,
                 Category.ANY_CATEGORY,
-                "",
-                "",
-                listOf("1", "2")
+                "test test test testtesttesttest test test",
+                "3",
+                listOf("1", "2", "4")
                 ),
             Question(
                 Type.ANY_TYPE,
                 Difficulty.ANY_DIFFICULTY,
                 Category.ANY_CATEGORY,
-                "",
-                "",
-                listOf("1", "2")
+                "test 2",
+                "1",
+                listOf("2")
             ),
             Question(
                 Type.ANY_TYPE,
                 Difficulty.ANY_DIFFICULTY,
                 Category.ANY_CATEGORY,
-                "",
-                "",
-                listOf("1", "2")
+                "test test test testtesttesttest test test",
+                "1",
+                listOf("2")
             ),
             Question(
                 Type.ANY_TYPE,
                 Difficulty.ANY_DIFFICULTY,
                 Category.ANY_CATEGORY,
-                "",
-                "",
-                listOf("1", "2")
+                "test test test testtesttesttest test test",
+                "4",
+                listOf("1", "2", "3")
             )
         )
-    }
-
-    fun validateAnswer(answer: String, question: Question) {
-        if (question.correctAnswer == answer) {
-            correctAnswers++
-        }
     }
 }

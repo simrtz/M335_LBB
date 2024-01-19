@@ -5,17 +5,21 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.triviaquiz.R
-import com.example.triviaquiz.api.TriviaClient
+import com.example.triviaquiz.service.QuestionService
 
 
+const val CORRECTLY_ANSWERED = "CORRECTLY_ANSWERED"
 class ResultActivity : AppCompatActivity() {
+    private val questionService = QuestionService()
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
 
-        val correctlyAnswered = 0;
-        val numberOfQuestions = intent.getIntExtra("NUMBER_OF_QUESTIONS", 0)
+        val numberOfQuestions = intent.getIntExtra(NUMBER_OF_QUESTIONS_KEY, 0)
+        val correctlyAnswered = intent.getIntExtra(CORRECTLY_ANSWERED, 0)
 
         val resultStatisticView = findViewById<TextView>(R.id.result_text)
 
